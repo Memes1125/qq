@@ -1,0 +1,170 @@
+﻿<Window x:Class="LibraryProject.Windows.AddBookWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LibraryProject.Windows"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        Title="AddBookWindow" Height="920" Width="500">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="240"/>
+            <RowDefinition Height="250"/>
+            <RowDefinition Height="70"/>
+        </Grid.RowDefinitions>
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Vertical">
+            <Label Content="Введите название книги" FontSize="16" Margin="0 0 0 10"/>
+            <TextBox DataContext="{Binding AddBookVM}" Text="{Binding BookName}" HorizontalContentAlignment="Center" FontSize="16" Width="200"/>
+        </StackPanel>
+        <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Vertical">
+            <Label Content="Введите цену книги" FontSize="16" Margin="0 0 0 10" HorizontalAlignment="Center"/>
+            <TextBox DataContext="{Binding AddBookVM}" Text="{Binding Price}" HorizontalContentAlignment="Center" FontSize="16" Width="200"/>
+        </StackPanel>
+        <StackPanel Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Vertical">
+            <Label Content="Введите кол-во книг" FontSize="16" Margin="0 0 0 10" HorizontalAlignment="Center"/>
+            <TextBox DataContext="{Binding AddBookVM}" Text="{Binding Count}" HorizontalContentAlignment="Center" FontSize="16" Width="200"/>
+        </StackPanel>
+        <StackPanel Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Vertical">
+            <Label Content="Сумма" FontSize="16" Margin="0 0 0 10" HorizontalAlignment="Center"/>
+            <TextBox Text="{Binding FullPrice}" HorizontalContentAlignment="Center" FontSize="16" Width="200"/>
+        </StackPanel>
+        <StackPanel Grid.Row="4" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Vertical" Margin="10 0 0 0">
+            <Label Content="Выберите Издательство" FontSize="16" Margin="0 0 0 10" HorizontalAlignment="Center"/>
+            <ComboBox ItemsSource="{Binding Publishers}" SelectedItem="{Binding SelectedPublisher}" DisplayMemberPath="PublisherName" HorizontalContentAlignment="Center" FontSize="16" Width="200"/>
+        </StackPanel>
+        <StackPanel Grid.Row="4" HorizontalAlignment="Right" VerticalAlignment="Center" Orientation="Vertical" Margin="0 0 10 0">
+            <Label Content="Выберите отделение" FontSize="16" Margin="0 0 0 10" HorizontalAlignment="Center"/>
+            <ComboBox ItemsSource="{Binding Departaments}" SelectedItem="{Binding SelectedDepartament}" DisplayMemberPath="DepartmentName" HorizontalContentAlignment="Center" FontSize="16" Width="200"/>
+        </StackPanel>
+        <Grid Grid.Row="5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="25"/>
+                <RowDefinition />
+                <RowDefinition Height="40"/>
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0" Grid.Column="0" Content="Выберите автора книги" HorizontalAlignment="Center"/>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <ListBox ItemsSource="{Binding Authors}" SelectedItem="{Binding SelectedAuthor}" DisplayMemberPath="LastName"/>
+                <ListBox Grid.Column="1" ItemsSource="{Binding ThisAuthors}" SelectedItem="{Binding SelectedThisAuthor}" DisplayMemberPath="Author.LastName"/>
+            </Grid>
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Button Command="{Binding AddAuthor}" Style="{StaticResource navButton}" Background="White" BorderBrush="ForestGreen" Foreground="ForestGreen" BorderThickness="2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="10"/>
+                            <Setter Property="Width" Value="180"/>
+                            <Setter Property="Height" Value="30"/>
+                        </Style>
+                    </Button.Resources>
+                    <Button.Content>
+                        Добавить автора
+                    </Button.Content>
+                </Button>
+                <Button Command="{Binding DeleteAuthor}" Style="{StaticResource navButton}" Grid.Column="1" Background="White" Foreground="Red" BorderBrush="Red" BorderThickness="2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="10"/>
+                            <Setter Property="Width" Value="180"/>
+                            <Setter Property="Height" Value="30"/>
+                        </Style>
+                    </Button.Resources>
+                    <Button.Content>
+                        Убрать автора
+                    </Button.Content>
+                </Button>
+            </Grid>
+        </Grid>
+        <Grid Grid.Row="6" Margin="0 10 0 0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="25"/>
+                <RowDefinition />
+                <RowDefinition Height="40"/>
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0" Grid.Column="0" Content="Выберите жанр книги" HorizontalAlignment="Center"/>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <ListBox ItemsSource="{Binding Genres}" SelectedItem="{Binding SelectedGenre}" DisplayMemberPath="GenreName"/>
+                <ListBox Grid.Column="1" ItemsSource="{Binding ThisGenres}" SelectedItem="{Binding SelectedThisGenre}" DisplayMemberPath="Genre.GenreName"/>
+            </Grid>
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Button Command="{Binding AddGenre}" Style="{StaticResource navButton}" Background="White" BorderBrush="ForestGreen" Foreground="ForestGreen" BorderThickness="2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="10"/>
+                            <Setter Property="Width" Value="180"/>
+                            <Setter Property="Height" Value="30"/>
+                        </Style>
+                    </Button.Resources>
+                    <Button.Content>
+                        Добавить жанр
+                    </Button.Content>
+                </Button>
+                <Button Command="{Binding DeleteGenre}" Style="{StaticResource navButton}" Grid.Column="1" Background="White" Foreground="Red" BorderBrush="Red" BorderThickness="2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="10"/>
+                            <Setter Property="Width" Value="180"/>
+                            <Setter Property="Height" Value="30"/>
+
+                        </Style>
+                    </Button.Resources>
+                    <Button.Content>
+                        Убрать жанр
+                    </Button.Content>
+                </Button>
+            </Grid>
+        </Grid>
+        <Grid Grid.Row="7">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Button Command="{Binding Cancel}" Style="{StaticResource navButton}" Grid.Column="0" Background="White" Foreground="Red" BorderBrush="Red" BorderThickness="2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="10"/>
+                        <Setter Property="Width" Value="180"/>
+                        <Setter Property="Height" Value="30"/>
+
+                    </Style>
+                </Button.Resources>
+                <Button.Content>
+                    Отмена
+                </Button.Content>
+            </Button>
+            <Button Command="{Binding SaveBook}" Style="{StaticResource navButton}" Grid.Column="1" Background="White" BorderBrush="ForestGreen" Foreground="ForestGreen" BorderThickness="2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="10"/>
+                        <Setter Property="Width" Value="180"/>
+                        <Setter Property="Height" Value="30"/>
+                    </Style>
+                </Button.Resources>
+                <Button.Content>
+                    Сохранить
+                </Button.Content>
+            </Button>
+        </Grid>
+    </Grid>
+</Window>
